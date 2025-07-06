@@ -68,11 +68,19 @@ def resource_path(relative_path):
 
     return os.path.join(base_path, relative_path)
 
-PICOVOICE_ACCESS_KEY_EN = "eRoIXftBuShCDzkiVx+89w9KpO7fQkUMDDSXA3qcCXLD53HAC1FVjw=="
-PICOVOICE_ACCESS_KEY_ES = "eYwmeuJKw4e45Yk70luJMEn3BqInhw6tqo41aFkmEtHLE5u3+R4z1Q=="
+## Here you must insert your own private keys. Follow the instructions:
+## go to picovoice.ai/ > Sign In > Continue with Google > Enter your Google account > 
+## Enter your first, last name and github profile > In console.picovoice.ai/ >> copy and paste the AccessKey.
+## Then in the navbar, go to Porcupine > Select a language > English > Wake Word > "Hey Karen" > select the microphone icon
+## After recognized, select Train > Platform > Windows (x86_64.arm64) > Select Download > Will download a .zip with a .ppn file
+## Paste that .ppn file to the project folder.
 
-WAKE_WORD_PATH_EN = resource_path("hey_karen_en.ppn")
-WAKE_WORD_PATH_ES = resource_path("hey_karen_es.ppn")
+## Do this procedure for each access key
+PICOVOICE_ACCESS_KEY_EN = "[Insert your own]"
+PICOVOICE_ACCESS_KEY_ES = "[Insert your own]"
+
+WAKE_WORD_PATH_EN = resource_path("[insert your .ppn file name here]")
+WAKE_WORD_PATH_ES = resource_path("[insert your .ppn file name here]")
 MODEL_PATH_ES = resource_path("porcupine_params_es.pv")
 
 MESSAGES = {
