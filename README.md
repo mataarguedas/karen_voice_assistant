@@ -4,7 +4,7 @@ A desktop voice assistant with a clean graphical user interface built using Pyth
 
 Features
 
-    Trilingual Support: Fully functional in English, Spanish, and Mandarin, from wake word to command processing.
+    Trilingual Support: Fully functional in English, Spanish, and Mandarin from wake word to command processing.
 
     Wake Word Detection: Utilizes the powerful and lightweight Porcupine wake word engine to listen for "Hey Karen" (English), "Ey Karen" (Spanish) or "Nǐ hǎo měi lì" (你好美丽) （Mandarin）.
 
