@@ -1,12 +1,12 @@
 Karen - A Personal Voice Assistant
 
-A desktop voice assistant with a clean graphical user interface built using Python. Karen listens for a wake word, responds to commands in both English and Spanish, and provides visual feedback for an interactive experience.
+A desktop voice assistant with a clean graphical user interface built using Python. Karen listens for a wake word, responds to commands on English, Spanish and Mandarin, and provides visual feedback for an interactive experience.
 
 Features
 
-    Bilingual Support: Fully functional in both English and Spanish, from wake word to command processing.
+    Trilingual Support: Fully functional in English, Spanish, and Mandarin, from wake word to command processing.
 
-    Wake Word Detection: Utilizes the powerful and lightweight Porcupine wake word engine to listen for "Hey Karen" (English) or "Ey Karen" (Spanish).
+    Wake Word Detection: Utilizes the powerful and lightweight Porcupine wake word engine to listen for "Hey Karen" (English), "Ey Karen" (Spanish) or "Nǐ hǎo měi lì" (你好美丽) （Mandarin）.
 
     Core Voice Commands:
 
@@ -39,6 +39,8 @@ Prerequisites
         On Debian/Ubuntu: sudo apt-get install portaudio19-dev
 
         On macOS (using Homebrew): brew install portaudio
+        
+    A Mandarin text-to-speech (TTS) voice pack installed on your operating system for Mandarin voice output.
 
 Installation
 
@@ -54,14 +56,27 @@ Installation
     Ensure all the necessary asset files are placed in the root directory of the project alongside the script. The application depends on these files to function correctly.
     
     /karen-voice-assistant
-    ├── karen_ui.py               # Main application script
-    ├── requirements.txt          # List of project dependencies
-    ├── hey_karen_en.ppn          # English wake word model
-    ├── hey_karen_es.ppn          # Spanish wake word model
-    ├── porcupine_params_es.pv    # Porcupine Spanish language parameters
-    ├── karenPic.jpeg             # Image used for the UI voice indicator
-    ├── karenCirclePic.png        # Icon for the application window
-    └── Roboto-Regular.ttf        # Custom font file
+    ├── main.py                 # Main application entry point
+    ├── config.py               # Configuration for API keys and file paths
+    ├── requirements.txt        # List of project dependencies
+    │
+    ├── backend/
+    │   └── voice_assistant.py  # Handles wake word, speech recognition, and command processing
+    │
+    ├── ui/
+    │   └── main_window.py      # Defines the PyQt5 graphical user interface
+    │
+    ├── utils/
+    │   └── helpers.py          # Utility functions, like handling resource paths
+    │
+    └── assets/
+        ├── hey_karen_en.ppn        # English wake word model
+        ├── hey_karen_es.ppn        # Spanish wake word model
+        ├── ni_hao_mei_li_zh.ppn    # Mandarin wake word model
+        ├── porcupine_params_es.pv  # Porcupine Spanish language model
+        ├── porcupine_params_zh.pv  # Porcupine Mandarin language model
+        ├── karenCirclePic.png      # Application icon
+        └── voice_indicator.png     # Image for the animated voice indicator
 
     3. Set Up a Virtual Environment
     It is highly recommended to use a virtual environment to manage dependencies and avoid conflicts.
@@ -91,14 +106,15 @@ Installation
     pip install -r requirements.txt
 
     5. Configure API Keys
-    Open the karen_ui.py script and insert your Picovoice Access Key(s) into the Backend class.
-    # in karen_ui.py:
+    Open the config.py script and insert your Picovoice Access Key(s) into the Backend class.
+    # in config.py:
     class Backend(QObject):
         def __init__(self):
             super().__init__()
             # Replace these placeholder strings with your actual key
-            self.PICOVOICE_ACCESS_KEY_EN = "YOUR_PICOVOICE_ACCESS_KEY"
-            self.PICOVOICE_ACCESS_KEY_ES = "YOUR_PICOVOICE_ACCESS_KEY"
+            PICOVOICE_ACCESS_KEY_EN = "YOUR_PICOVOICE_ACCESS_KEY"
+            PICOVOICE_ACCESS_KEY_ES = "YOUR_PICOVOICE_ACCESS_KEY"
+            PICOVOICE_ACCESS_KEY_ZH = "YOUR_PICOVOICE_ACCESS_KEY"
 
 Usage
     
@@ -110,12 +126,12 @@ Usage
     Voice Commands
     Activate Karen with the wake word ("Hey Karen" or "Ey Karen") and then issue one of the following commands:
 
-      1. "What time is it?" or "¿Qué hora es?" tells you the current time.
-      2. "What's the date?" or "¿Qué día es hoy?" tells you the current date.
-      3. "Where are we?" or "¿Dónde estamos?" identifies your current country via your IP.
-      4. "Set a timer for X minutes" or "Pon un temporizador de X minutos" sets a timer for the specified X minutes.
-      5. "Search for ____________________" or "Busca ____________________" opens a new browser tab with Google search results.
-      6. "Play video name on YouTube" or "Reproduce video name en YouTube" finds and plays the requested video on YouTube.
+      1. "What time is it?",  "¿Qué hora es?" or " "现在几点" (xiàn zài jǐ diǎn)" tells you the current time.
+      2. "What's the date?", "¿Qué día es hoy?" or " "今天几号" (jīn tiān jǐ hào)" tells you the current date.
+      3. "Where are we?", "¿Dónde estamos?" or " "我们在哪" (wǒ men zài nǎ'er)" identifies your current country via your IP.
+      4. "Set a timer for X minutes", "Pon un temporizador de X minutos" or " "设置一个 X分钟的计时器"(Shèzhì yīgè X fēnzhōng de jìshí qì)" sets a timer for the specified X minutes.
+      5. "Search for ____________________", "Busca ____________________" or ""搜索 ____________________" (sōu suǒ ____________________)" opens a new browser tab with Google search results.
+      6. "Play ____________________ on YouTube" or "Reproduce ____________________ en YouTube" or " 播放 ____________________ 在youtube上" (bō fàng ____________________ zài youtube shàng) " finds and plays the requested video on YouTube.
 
 License
     
